@@ -10,6 +10,8 @@
 
 </head>
 <body>
+    
+<!-- Create the method for the form -->    
 <section style="margin:2em 0;">
     <h2>Liste de commandes</h2>
     <form method="POST" action="">
@@ -19,7 +21,7 @@
     </form>
 
     
-
+        // Create connection with server php
         <?php
         $user = 'root';
         $pass='';
@@ -40,7 +42,8 @@
             <th>Date de livraison</th>
             <th>Status</th>
         </tr>
-
+        
+           <!-- LOOP to show result-->
         <?php
             foreach ($resultats as $resultat):
             echo "<tr>";
