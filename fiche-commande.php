@@ -12,9 +12,11 @@
 
 
 <?php 
+    // Create new connection to dbserver
     $user = 'root';
     $pass='';
-
+    
+    // create var to store 1st request SQL
     $dbh = new PDO('mysql:host=localhost;dbname=classicmodels',$user, $pass);
        $maRequeteClient = $dbh->prepare("SELECT customerName,contactLastName,contactFirstName,addressLine1,customers.customerNumber 
        FROM customers 
@@ -23,7 +25,7 @@
        WHERE orderNumber= " .implode($_GET) );
        $maRequeteClient->execute();
        $resultatsClient = $maRequeteClient->fetchAll();
-
+    // create var to store 2nd request SQL
        $maRequeteProduit=$dbh->prepare("SELECT orderdetails.orderNumber, orderdetails.productCode,priceEach, productName,quantityOrdered, priceEach*quantityOrdered AS priceTotal 
        FROM `orderdetails`
        INNER JOIN products ON products.productCode=orderdetails.productCode
@@ -32,7 +34,7 @@
        $maRequeteProduit->execute();
        $resultatsProduit = $maRequeteProduit->fetchALL();
 
-
+// create unique file for each commande code
 ?>       
 <section style="margin: 2em 0 0">
     <h2>Bon de commande n° <?=implode($_GET); ?></h2>
@@ -43,7 +45,7 @@
 <?php
 
 
-
+// show client's infomation
 foreach ($resultatsClient as $resultatClient):
     ?>
     <div style="margin-left:80%; width:20%,">
@@ -56,6 +58,7 @@ foreach ($resultatsClient as $resultatClient):
 endforeach;
 ?>
 
+ <!-- Infomation of commande -->
 <table class="table">
         <tr class="table-primary">
             <th>Produit</th>
